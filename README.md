@@ -1,3 +1,4 @@
-# vim-config
-## .vimrc
-## ycm config script
+# Ubuntu personal configuration
+*vim-config* 
+- .vimrc
+- ycm config script
