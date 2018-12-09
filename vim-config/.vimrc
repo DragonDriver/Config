@@ -1,10 +1,4 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 个人设置，personal
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufWritePost $MYVIMRC source $MYVIMRC	" 让配置变更立即生效
-set signcolumn=yes    "强制显示侧边栏
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 通用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ","           " 定义<leader>键
@@ -65,7 +59,7 @@ set ignorecase          " 搜索时大小写不敏感
 set nobackup            " 设置不备份
 set noswapfile          " 禁止生成临时文件
 set autoread            " 文件在vim之外修改过，自动重新读入
-set autowrite           " 设置自动保存
+"set autowrite           " 设置自动保存
 set confirm             " 在处理未保存或只读文件的时候，弹出确认
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -115,6 +109,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 """"""""""修改比较""""""""""
 Plug 'mhinz/vim-signify'
 """"""""""自动补全""""""""""
+"Plug 'Valloric/YouCompleteMe',          {'do':'./install.py --clang-completer --go-completer'}
 Plug 'Valloric/YouCompleteMe'
 """"""""""神器，函数，列表""""""""""
 Plug 'Yggdroot/LeaderF'
@@ -122,12 +117,30 @@ Plug 'Yggdroot/LeaderF'
 Plug 'Shougo/echodoc.vim'
 """"""""""状态栏""""""""""
 Plug 'vim-airline/vim-airline'
+""""""""""主题""""""""""
+Plug 'morhetz/gruvbox'
+"Plug 'vim-scripts/phd'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'tomasr/molokai'
+"Plug 'tamlok/detorte'
+Plug 'icymind/NeoSolarized'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 文件树设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nnoremap <silent> <leader>n :NERDTreeToggle<cr>
+nnoremap <silent> <leader>n :NERDTreeToggle<cr> "打开nerdtree
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" c++ 语法高亮,for cpp hilight
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+let g:cpp_no_function_highlight = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "配置tags
@@ -183,6 +196,11 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "配置终端asynrun
+"<leader>cg - 查看光标下符号的定义
+"<leader>cs - 查看光标下符号的引用
+"<leader>cc - 查看有哪些函数调用了该函数
+"<leader>cf- 查找光标下的文件
+"<leader>ci- 查找哪些文件 include 了本文件
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6
@@ -191,8 +209,8 @@ let g:asyncrun_open = 6
 " 设置  打开/关闭 Quickfix 窗口,rq means run quickfix
 nnoremap rq :call asyncrun#quickfix_toggle(6)<cr>
 " 编译单个文件,cs means compiler single
-" nnoremap <silent>cs :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
-nnoremap <silent>cs :AsyncRun g++ -std=c++14 -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"  "$(VIM_FILEPATH)"<cr>
+" nnoremap <silent><F5> :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+nnoremap <silent>cs :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 " 运行，rs means run single
 nnoremap <silent>rs :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 " 定义项目标志
@@ -253,6 +271,8 @@ let g:ycm_confirm_extra_conf = 0 "导入工程自己的conf时提示确认
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LeaderF
+" ,fn列出函数
+" 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>fn :LeaderfFunction<cr>
 nnoremap <leader>fl :LeaderfLineAll<cr>
@@ -287,3 +307,93 @@ let g:airline#extensions#tabline#enabled = 1
 " echodoc.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:echodoc_enable_at_startup = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 个人设置，personal
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufWritePost $MYVIMRC source $MYVIMRC	" 让配置变更立即生效
+set signcolumn=yes    "强制显示侧边栏
+"colorscheme gruvbox
+"colorscheme torte
+"colorscheme detorte
+"colorscheme solarized
+"colorscheme molokai
+"colorscheme phd
+set termguicolors   " for neosolarized
+colorscheme NeoSolarized
+set background=dark
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 添加头文件保护
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 当新建 .h .c .hpp .cpp .mk .sh等文件时自动调用SetTitle 函数
+autocmd BufNewFile *.[ch],*.hpp,*.cpp,Makefile,*.mk,*.sh exec ":call SetTitle()"
+" 加入注释
+func SetComment()
+	call setline(1,"/*================================================================")
+	call append(line("."),   "*   Talk is cheap, show me the code.")
+	call append(line(".")+1, "*   ")
+	call append(line(".")+2, "*   File Name  ：".expand("%:t"))
+	call append(line(".")+3, "*   Author     ：DragonDriver")
+	call append(line(".")+4, "*   Date       ：".strftime("%Y年%m月%d日"))
+	call append(line(".")+5, "*   Description：")
+	call append(line(".")+6, "*")
+	call append(line(".")+7, "================================================================*/")
+	call append(line(".")+8, "")
+	call append(line(".")+9, "")
+endfunc
+" 加入shell,Makefile注释
+func SetComment_sh()
+	call setline(3, "#================================================================")
+	call setline(4, "#   Talk is cheap, show me the code.")
+	call setline(5, "#   ")
+	call setline(6, "#   File Name  ：".expand("%:t"))
+	call setline(7, "#   Author     ：DragonDriver")
+	call setline(8, "#   Date       ：".strftime("%Y年%m月%d日"))
+	call setline(9, "#   Description：")
+	call setline(10, "#")
+	call setline(11, "#================================================================")
+	call setline(12, "")
+	call setline(13, "")
+endfunc
+
+func SetHeaderGuard()
+  call append(line(".")+10, "#ifndef _".toupper(expand("%:t:r"))."_H")
+  call append(line(".")+11, "#define _".toupper(expand("%:t:r"))."_H")
+  call append(line(".")+12, "#ifdef __cplusplus")
+  call append(line(".")+13, "extern \"C\"")
+  call append(line(".")+14, "{")
+  call append(line(".")+15, "#endif")
+  call append(line(".")+16, "")
+  call append(line(".")+17, "#ifdef __cplusplus")
+  call append(line(".")+18, "}")
+  call append(line(".")+19, "#endif")
+endfunc
+
+" 定义函数SetTitle，自动插入文件头
+func SetTitle()
+	if &filetype == 'make'
+		call setline(1,"")
+		call setline(2,"")
+		call SetComment_sh()
+
+	elseif &filetype == 'sh'
+		call setline(1,"#!/system/bin/sh")
+		call setline(2,"")
+		call SetComment_sh()
+
+	else
+	     call SetComment()
+	     if expand("%:e") == 'hpp'
+         call SetHeaderGuard()
+	     elseif expand("%:e") == 'h'
+         call SetHeaderGuard()
+	     elseif &filetype == 'c'
+	  	call append(line(".")+10,"#include \"".expand("%:t:r").".h\"")
+	     elseif &filetype == 'cpp'
+	  	call append(line(".")+10, "#include \"".expand("%:t:r").".h\"")
+	     endif
+	endif
+endfunc
+
