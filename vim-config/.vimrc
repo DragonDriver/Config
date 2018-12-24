@@ -1,7 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 通用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","           " 定义<leader>键
+let mapleader = "\<space>"    " 定义<leader>键
 set clipboard=unnamed         " 共享系统剪切板
 set nocompatible              " 设置不兼容原始vi模式
 filetype on                   " 设置开启文件类型侦测
@@ -38,7 +38,7 @@ set smarttab                " 在行和段开始处使用制表符
 set nowrap                  " 禁止折行
 set backspace=2             " 使用回车键正常处理indent,eol,start等
 set sidescroll=10           " 设置向右滚动字符数
-set fdm=syntax              " 设置代码折叠
+"set fdm=syntax              " 设置代码折叠
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 代码补全
@@ -70,12 +70,12 @@ set helplang=cn
 set termencoding=utf-8
 set encoding=utf8
 set fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
-
+set ambiwidth=double "防止特殊符号无法正常显示
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "快捷键shortcuts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap LB 0	
+nmap LB 0
 nmap LE $
 vnoremap <Leader>y "+y
 nmap <Leader>p "+p
@@ -84,47 +84,57 @@ nmap <Leader>w :w<CR>
 nmap <Leader>WQ :wa<CR>:q<CR>
 nmap <Leader>Q :qa!<CR>
 nnoremap nw <C-W><C-W>
-nnoremap <Leader>lw <C-W>l
-nnoremap <Leader>hw <C-W>h
-nnoremap <Leader>kw <C-W>k
-nnoremap <Leader>jw <C-W>j
+nnoremap <Leader>l <C-W>l
+nnoremap <Leader>h <C-W>h
+nnoremap <Leader>k <C-W>k
+nnoremap <Leader>j <C-W>j
 nmap <Leader>M %
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 插件安装LINX
+" 插件安装
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
-""""""""""文件列表,目录树""""""""""
-Plug 'scrooloose/nerdtree',             { 'on':'NERDTreeToggle'}              
-""""""""""索引""""""""""
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
-Plug 'skywind3000/vim-preview'
-""""""""""后台运行""""""""""
-Plug 'skywind3000/asyncrun.vim'
-""""""""""动态检查""""""""""
-Plug 'w0rp/ale'
-""""""""""高亮""""""""""
-Plug 'octol/vim-cpp-enhanced-highlight'
-""""""""""修改比较""""""""""
-Plug 'mhinz/vim-signify'
-""""""""""自动补全""""""""""
-"Plug 'Valloric/YouCompleteMe',          {'do':'./install.py --clang-completer --go-completer'}
-Plug 'Valloric/YouCompleteMe'
-""""""""""神器，函数，列表""""""""""
-Plug 'Yggdroot/LeaderF'
-""""""""" 参数提示""""""""""
-Plug 'Shougo/echodoc.vim'
-""""""""""状态栏""""""""""
-Plug 'vim-airline/vim-airline'
-""""""""""主题""""""""""
-Plug 'morhetz/gruvbox'
-"Plug 'vim-scripts/phd'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'tomasr/molokai'
-"Plug 'tamlok/detorte'
-Plug 'icymind/NeoSolarized'
+Plug 'scrooloose/nerdtree',{ 'on':'NERDTreeToggle'}                   " 文件列表,目录树
+Plug 'ludovicchabant/vim-gutentags'                                   " 索引
+Plug 'skywind3000/gutentags_plus'                                     " 索引
+Plug 'skywind3000/vim-preview'                                        " 索引,查看
+Plug 'skywind3000/asyncrun.vim'                                       " 后台运行
+Plug 'octol/vim-cpp-enhanced-highlight'                               " 高亮
+Plug 'Valloric/YouCompleteMe',{'do':'./install.py --clang-completer'} " 语义补全
+Plug 'jiangmiao/auto-pairs'                                           " 自动括号
+Plug 'Yggdroot/LeaderF'                                               " 神器，函数，列表
+Plug 'Shougo/echodoc.vim'                                             " 参数提示
+Plug 'vim-airline/vim-airline'                                        " 状态栏
+Plug 'morhetz/gruvbox'                                                " 主题
+Plug 'icymind/NeoSolarized'                                           " 主题
+Plug 'Yggdroot/indentLine'                                            " 缩进标线
+Plug 'godlygeek/tabular'                                              " 自动对齐
+Plug 'luochen1990/rainbow'                                            " 彩虹括号
 call plug#end()
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 彩虹括号rainbow
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 自动对齐tabular
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>ac :Tabularize /\/\/<cr>
+vmap <Leader>ac :Tabularize /\/\/<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 缩进标线设置Yggdroot/indentLine
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indentLine_noConcrealCursor = 1
+let g:indentLine_color_term       = 0
+let g:indentLine_char             = '|'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 文件树设置
@@ -134,73 +144,73 @@ nnoremap <silent> <leader>n :NERDTreeToggle<cr> "打开nerdtree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " c++ 语法高亮,for cpp hilight
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
+let g:cpp_class_scope_highlight                  = 1
+let g:cpp_member_variable_highlight              = 1
+let g:cpp_class_decl_highlight                   = 1
 let g:cpp_experimental_simple_template_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-let g:cpp_no_function_highlight = 1
+let g:cpp_experimental_template_highlight        = 1
+let g:cpp_concepts_highlight                     = 1
+let g:cpp_no_function_highlight                  = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "配置tags
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"自动载入ctags gtags
-if version >= 800
-    Plug 'ludovicchabant/vim-gutentags'
-    Plug 'skywind3000/gutentags_plus'
-
-    let $GTAGSLABEL = 'native-pygments'
-    let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-
-    " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
-    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-
-    " 所生成的数据文件的名称
-    let g:gutentags_ctags_tagfile = '.tags'
-
-    " 同时开启 ctags 和 gtags 支持：
-    let g:gutentags_modules = []
-    if executable('ctags')
-        let g:gutentags_modules += ['ctags']
-    endif
-    if executable('gtags-cscope') && executable('gtags')
-        let g:gutentags_modules += ['gtags_cscope']
-    endif
-
-    " 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-    let g:gutentags_cache_dir = expand('~/.cache/tags')
-
-    " 配置 ctags 的参数
-    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-    " 如果使用 universal ctags 需要增加下面一行
-    let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-
-    " 禁用 gutentags 自动加载 gtags 数据库的行为
-    " 避免多个项目数据库相互干扰
-    " 使用plus插件解决问题
-    let g:gutentags_auto_add_gtags_cscope = 0
-
-    "预览 quickfix 窗口 ctrl-w z 关闭
-    Plug 'skywind3000/vim-preview'
-    "P 预览 大p关闭
-    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-    noremap <Leader>u :PreviewScroll -1<cr> " 往上滚动预览窗口
-    noremap <leader>d :PreviewScroll +1<cr> "  往下滚动预览窗口
-endif
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"配置终端asynrun
 "<leader>cg - 查看光标下符号的定义
 "<leader>cs - 查看光标下符号的引用
 "<leader>cc - 查看有哪些函数调用了该函数
 "<leader>cf- 查找光标下的文件
 "<leader>ci- 查找哪些文件 include 了本文件
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"自动载入ctags gtags
+if version >= 800
+  Plug 'ludovicchabant/vim-gutentags'
+  Plug 'skywind3000/gutentags_plus'
+
+  let $GTAGSLABEL = 'native-pygments'
+  let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
+
+  " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
+  let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+  " 所生成的数据文件的名称
+  let g:gutentags_ctags_tagfile = '.tags'
+
+  " 同时开启 ctags 和 gtags 支持：
+  let g:gutentags_modules = []
+  if executable('ctags')
+    let g:gutentags_modules += ['ctags']
+  endif
+  if executable('gtags-cscope') && executable('gtags')
+    let g:gutentags_modules += ['gtags_cscope']
+  endif
+
+  " 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+  let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+  " 配置 ctags 的参数
+  let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+  let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+  let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+  " 如果使用 universal ctags 需要增加下面一行
+  let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+
+  " 禁用 gutentags 自动加载 gtags 数据库的行为
+  " 避免多个项目数据库相互干扰
+  " 使用plus插件解决问题
+  let g:gutentags_auto_add_gtags_cscope = 0
+
+  "预览 quickfix 窗口 ctrl-w z 关闭
+  Plug 'skywind3000/vim-preview'
+  "P 预览 大p关闭
+  autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+  autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+  noremap <leader>u :PreviewScroll -1<cr> " 往上滚动预览窗口
+  noremap <leader>d :PreviewScroll +1<cr> "  往下滚动预览窗口
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"配置终端asynrun
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6
@@ -209,14 +219,12 @@ let g:asyncrun_open = 6
 " 设置  打开/关闭 Quickfix 窗口,rq means run quickfix
 nnoremap rq :call asyncrun#quickfix_toggle(6)<cr>
 " 编译单个文件,cs means compiler single
-" nnoremap <silent><F5> :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
-nnoremap <silent>cs :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+nnoremap <silent>cs :AsyncRun g++ -std=c++11 -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 " 运行，rs means run single
 nnoremap <silent>rs :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 " 定义项目标志
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 " 编译整个项目，cf means compiler full project
-"nnoremap <silent> <F7> :AsyncRun -cwd=<root> make <cr>
 nnoremap <silent>cf :AsyncRun -cwd=<root> make <cr>
 " 清理整个项目，ml means make clean
 nnoremap <silent>ml :AsyncRun -cwd=<root> make clean <cr>
@@ -224,30 +232,6 @@ nnoremap <silent>ml :AsyncRun -cwd=<root> make clean <cr>
 "nnoremap <silent> <F8> :AsyncRun -cwd=<root> -raw make run <cr>
 "测试整个项目，需要makefile中有make test规则
 "nnoremap <silent> <F6> :AsyncRun -cwd=<root> -raw make test <cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"语法检查，动态检查ale
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_linters_explicit = 1
-let g:ale_completion_delay = 500
-let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:airline#extensions#ale#enabled = 1
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-let g:ale_c_cppcheck_options = ''
-let g:ale_cpp_cppcheck_options = ''
-let g:ale_sign_error = "\ue009\ue009"
-hi! clear SpellBad
-hi! clear SpellCap
-hi! clear SpellRare
-hi! SpellBad gui=undercurl guisp=red
-hi! SpellCap gui=undercurl guisp=blue
-hi! SpellRare gui=undercurl guisp=magenta
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -263,30 +247,32 @@ let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion = '<c-y>'
 noremap <c-y> <NOP>
 let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python,go': ['re!\w{2}'],
-			\ 'lua': ['re!\w{2}'],
-			\ }
-let g:ycm_global_ycm_extra_conf= '~/.vim/plugged/YouCompleteMe/cpp/.ycm_extra_conf.py'
+      \ 'c,cpp,python,go': ['re!\w{2}'],
+      \ 'lua': ['re!\w{2}'],
+      \ }
+let g:ycm_global_ycm_extra_conf= '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0 "导入工程自己的conf时提示确认
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LeaderF
-" ,fn列出函数
-" 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>fn :LeaderfFunction<cr>
 nnoremap <leader>fl :LeaderfLineAll<cr>
 let g:Lf_WildIgnore = {
-            \ 'dir': ['.svn','.git','.hg','.vscode','.wine','.deepinwine','.oh-my-zsh'],
-            \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-            \}
+      \ 'dir': ['.svn','.git','.hg','.vscode','.wine','.deepinwine','.oh-my-zsh'],
+      \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+      \}
 let g:Lf_UseCache = 0
 let g:Lf_ShortcutF = '<c-p>'
 let g:Lf_ShortcutB = '<m-n>'
-noremap <c-n> :LeaderfMru<cr>
-noremap <m-p> :LeaderfFunction!<cr>
-noremap <m-n> :LeaderfBuffer<cr>
-noremap <m-m> :LeaderfTag<cr>
+"noremap <c-n> :LeaderfMru<cr>
+"noremap <m-p> :LeaderfFunction!<cr>
+"noremap <m-n> :LeaderfBuffer<cr>
+"noremap <m-m> :LeaderfTag<cr>
+nmap <leader><space>n :LeaderfMru<cr>
+nmap <leader><space>p :LeaderfFunction!<cr>
+nmap <leader><space>b :LeaderfBuffer<cr>
+nmap <leader><space>t :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
 let g:Lf_WorkingDirectoryMode = 'Ac'
@@ -300,27 +286,35 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline状态栏
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_section_b = '%{strftime("%m/%d/%Y - %H:%M")}'
-let g:airline#extensions#tabline#enabled = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_setcion_b='%{strftime("%c")}'
+let g:airline_setcion_y='%BN:%{bufnr"%"}'
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
+let g:airline#extensions#tabline#enabled=1 "顶部tab显示"
+nmap <tab> :bn<cr> "设置tab键映射"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " echodoc.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:echodoc_enable_at_startup = 1
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 个人设置，personal
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufWritePost $MYVIMRC source $MYVIMRC	" 让配置变更立即生效
+autocmd BufWritePost $MYVIMRC source $MYVIMRC " 让配置变更立即生效
 set signcolumn=yes    "强制显示侧边栏
-"colorscheme gruvbox
-"colorscheme torte
-"colorscheme detorte
-"colorscheme solarized
-"colorscheme molokai
-"colorscheme phd
 set termguicolors   " for neosolarized
 colorscheme NeoSolarized
+"colorscheme gruvbox
 set background=dark
 
 
@@ -328,36 +322,22 @@ set background=dark
 " 添加头文件保护
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 当新建 .h .c .hpp .cpp .mk .sh等文件时自动调用SetTitle 函数
-autocmd BufNewFile *.[ch],*.hpp,*.cpp,Makefile,*.mk,*.sh exec ":call SetTitle()"
+autocmd BufNewFile *.[ch],*.hpp,*.cpp exec ":call SetTitle()"
 " 加入注释
 func SetComment()
-	call setline(1,"/*================================================================")
-	call append(line("."),   "*   Talk is cheap, show me the code.")
-	call append(line(".")+1, "*   ")
-	call append(line(".")+2, "*   File Name  ：".expand("%:t"))
-	call append(line(".")+3, "*   Author     ：DragonDriver")
-	call append(line(".")+4, "*   Date       ：".strftime("%Y年%m月%d日"))
-	call append(line(".")+5, "*   Description：")
-	call append(line(".")+6, "*")
-	call append(line(".")+7, "================================================================*/")
-	call append(line(".")+8, "")
-	call append(line(".")+9, "")
+  call setline(1,"/*================================================================")
+  call append(line("."),   "*   Talk is cheap, show me the code.")
+  call append(line(".")+1, "*   ")
+  call append(line(".")+2, "*   File Name  ：".expand("%:t"))
+  call append(line(".")+3, "*   Author     ：DragonDriver")
+  call append(line(".")+4, "*   Date       ：".strftime("%Y年%m月%d日"))
+  call append(line(".")+5, "*   Description：")
+  call append(line(".")+6, "*")
+  call append(line(".")+7, "================================================================*/")
+  call append(line(".")+8, "")
+  call append(line(".")+9, "")
 endfunc
-" 加入shell,Makefile注释
-func SetComment_sh()
-	call setline(3, "#================================================================")
-	call setline(4, "#   Talk is cheap, show me the code.")
-	call setline(5, "#   ")
-	call setline(6, "#   File Name  ：".expand("%:t"))
-	call setline(7, "#   Author     ：DragonDriver")
-	call setline(8, "#   Date       ：".strftime("%Y年%m月%d日"))
-	call setline(9, "#   Description：")
-	call setline(10, "#")
-	call setline(11, "#================================================================")
-	call setline(12, "")
-	call setline(13, "")
-endfunc
-
+" 头文件保护
 func SetHeaderGuard()
   call append(line(".")+10, "#ifndef _".toupper(expand("%:t:r"))."_H")
   call append(line(".")+11, "#define _".toupper(expand("%:t:r"))."_H")
@@ -370,30 +350,16 @@ func SetHeaderGuard()
   call append(line(".")+18, "}")
   call append(line(".")+19, "#endif")
 endfunc
-
 " 定义函数SetTitle，自动插入文件头
 func SetTitle()
-	if &filetype == 'make'
-		call setline(1,"")
-		call setline(2,"")
-		call SetComment_sh()
-
-	elseif &filetype == 'sh'
-		call setline(1,"#!/system/bin/sh")
-		call setline(2,"")
-		call SetComment_sh()
-
-	else
-	     call SetComment()
-	     if expand("%:e") == 'hpp'
-         call SetHeaderGuard()
-	     elseif expand("%:e") == 'h'
-         call SetHeaderGuard()
-	     elseif &filetype == 'c'
-	  	call append(line(".")+10,"#include \"".expand("%:t:r").".h\"")
-	     elseif &filetype == 'cpp'
-	  	call append(line(".")+10, "#include \"".expand("%:t:r").".h\"")
-	     endif
-	endif
+  call SetComment()
+  if expand("%:e") == 'hpp'
+    call SetHeaderGuard()
+  elseif expand("%:e") == 'h'
+    call SetHeaderGuard()
+  elseif &filetype == 'c'
+    call append(line(".")+10,"#include \"".expand("%:t:r").".h\"")
+  elseif &filetype == 'cpp'
+    call append(line(".")+10, "#include \"".expand("%:t:r").".h\"")
+  endif
 endfunc
-
