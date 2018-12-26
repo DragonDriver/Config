@@ -1,0 +1,19 @@
+echo "安装vscode"
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install code # or code-insiders
+echo "安装vim"
+sudo apt-get install vim
+echo "安装深度截图"
+sudo apt-get install deepin-screenshot
+echo "安装flash"
+sudo apt-get install flashplugin-nonfree
+echo "Install Shadowsocks"
+sudo apt-get install python-pip
+sudo pip install shadowsocks
+echo "Shadowsocks installed"
+echo "Done..."
+
