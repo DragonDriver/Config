@@ -7,4 +7,7 @@ sudo mkfontscale
 sudo mkfontdir
 sudo fc-cache
 cd ..
+sudo apt-get install ttf-wqy-microhei #文泉驿-微米黑
+sudo apt-get install ttf-wqy-zenhei #文泉驿-正黑
+sudo apt-get install xfonts-wqy #文泉驿-点阵宋体
 echo "字体安装完成"
