@@ -1,0 +1,9 @@
+{
+  "server":"159.89.136.160",
+  "local_address": "127.0.0.1",
+  "local_port":1080,
+  "server_port":8388,
+  "password":"popo163c",
+  "timeout":300,
+  "method":"aes-256-cfb"
+}
