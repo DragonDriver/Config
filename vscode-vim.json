@@ -1,0 +1,43 @@
+{
+    "extensions.ignoreRecommendations": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "vim.easymotion": true,
+    "vim.leader": "<space>",
+
+    "vim.useSystemClipboard": true,
+
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["<C-h>"],
+            "after": ["<left>"]
+        },
+        {
+            "before": ["<C-j>"],
+            "after": ["<down>"]
+        },
+        {
+            "before": ["<C-k>"],
+            "after": ["<up>"]
+        },
+        {
+            "before": ["<C-l>"],
+            "after": ["<right>"]
+        },
+        {
+            "before": ["<C-a>"],
+            "after": ["<home>"]
+        },
+        {
+            "before": ["<C-e>"],
+            "after": ["<end>"]
+        },
+        {
+            "before": ["C-d>"],
+            "after": ["<del>"]
+        }
+    ],
+    "workbench.colorTheme": "Default Light+"
+
+}
+
